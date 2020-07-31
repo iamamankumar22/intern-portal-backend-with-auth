@@ -224,8 +224,8 @@ app.post('/admin/addtask', admauth,(req,res)=>{
 })
 
 // Dashboard for the admin
-app.get("/admin/dashboard", admauth, (req, res) => {
-  User.find({}, (err, result) => {
+app.get("/admin/dashboard/:regno", admauth, (req, res) => {
+  User.find({options:req.params.regno}, (err, result) => {
     if(err){
       res.json({
         status:400,
