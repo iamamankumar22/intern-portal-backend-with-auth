@@ -86,8 +86,8 @@ app.post("/user/logoutall", auth, async(req, res)=> {
   }
 })
 
-app.get("/user/dashboard",auth, (req,res)=>{
-  Task.find({},(err,result)=>{
+app.get("/user/dashboard/:username",auth, (req,res)=>{
+  Task.find({username: req.params.username},(err,result)=>{
     if(err){
       res.json({
         status:400,
@@ -118,8 +118,8 @@ app.get('/user/taskone',  auth, (req, res) => {
 })
 
 //Profile
-app.get("/profile", auth,(req, res)=>{
-	User.find({},(err, result)=>{
+app.get("/profile/:id", auth,(req, res)=>{
+	User.findOne({"_id":id},(err, result)=>{
 	if (err) {
       res.json({
         status:400,
