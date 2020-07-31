@@ -241,8 +241,8 @@ app.get("/admin/dashboard/:regno", admauth, (req, res) => {
 
 //Displaying all the interns for a particular admin
 
-app.get("/admin/dashboard/tasks",  admauth, (req, res) => {
-    Task.find({}, (err, result) => {
+app.get("/admin/dashboard/tasks/:username",  admauth, (req, res) => {
+    Task.find({username:req.params.username}, (err, result) => {
     if(err){
       res.json({
         status:400,
@@ -329,8 +329,8 @@ Task.findOneAndUpdate({"_id":eventid}, {
 })
 
 //PROFILE OF ADMIN
-app.get("/admin/profile", admauth,(req, res)=>{
-	Admin.find({},(err, result)=>{
+app.get("/admin/profile/:id", admauth,(req, res)=>{
+	Admin.findOne({"_id":id},(err, result)=>{
 	if (err) {
       res.json({
         status:400,
