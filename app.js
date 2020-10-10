@@ -328,6 +328,44 @@ Task.findOneAndUpdate({"_id":eventid}, {
     })
 })
 
+//REMARK ROUTE
+app.post('/admin/dashboard/taskone/remark/:id', admauth, (req, res) => {
+Task.findOneAndUpdate({"_id":req.params.id}, {
+    remark: req.body.remark,
+},(err, result) => {
+        if (err)  {
+          res.json({
+            success:false,
+            message:err
+          })
+        }
+        else{
+          res.json({
+            success:true,
+            status:200
+          })
+      }
+      console.log('Remark complete')
+    })
+});
+
+//delete taskone
+app.get('/admin/dashboard/taskone/delete/:id',  admauth, (req, res) => {
+    Task.deleteOne({"_id":req.params.id},(err, result) => {
+    if (err) {
+      res.json({
+        status:400,
+        success:false,
+        message:err
+      })
+    }
+    else{
+		console.log(result);
+    res.json(result);
+    }
+  })
+})
+
 //PROFILE OF ADMIN
 app.get("/admin/profile/:id", admauth,(req, res)=>{
 	Admin.findOne({"_id":id},(err, result)=>{
